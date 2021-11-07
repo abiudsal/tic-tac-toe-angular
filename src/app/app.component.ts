@@ -61,7 +61,7 @@ export class AppComponent {
       }    
       else{
         this.gameOver = true
-        alert("Ganó el jugador "+this.turn);
+        setTimeout(() => alert("Ganó el jugador "+this.turn), 200);
       }
     }
   }  
