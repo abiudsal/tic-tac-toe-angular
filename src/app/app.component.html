@@ -2,30 +2,12 @@
   <div class="header">
 
     <div class="color" [ngClass]="{'activeTurn':turn==player1}">
-      <div class="text player1" [ngClass]="{
-        'color0':colorPlayer1==0,
-        'color1':colorPlayer1==1,
-        'color2':colorPlayer1==2,
-        'color3':colorPlayer1==3,
-        'color4':colorPlayer1==4,
-        'color5':colorPlayer1==5,
-        'color6':colorPlayer1==6,
-        'color7':colorPlayer1==7
-      }">
+      <div class="text player1" [ngClass]="true ? 'color'+colorPlayer1 : ''">
         {{player1}}
       </div>
       <div class="color-menu">
         <div class="row">
-          <div (click)="setColor(1, 0)" [ngClass]="{'active': colorPlayer1==0}" class="color-menu-element bg-color0"></div>
-          <div (click)="setColor(1, 1)" [ngClass]="{'active': colorPlayer1==1}" class="color-menu-element bg-color1"></div>
-          <div (click)="setColor(1, 2)" [ngClass]="{'active': colorPlayer1==2}" class="color-menu-element bg-color2"></div>
-          <div (click)="setColor(1, 3)" [ngClass]="{'active': colorPlayer1==3}" class="color-menu-element bg-color3"></div>
-        </div>
-        <div class="row">
-          <div (click)="setColor(1, 4)" [ngClass]="{'active': colorPlayer1==4}" class="color-menu-element bg-color4"></div>
-          <div (click)="setColor(1, 5)" [ngClass]="{'active': colorPlayer1==5}" class="color-menu-element bg-color5"></div>
-          <div (click)="setColor(1, 6)" [ngClass]="{'active': colorPlayer1==6}" class="color-menu-element bg-color6"></div>
-          <div (click)="setColor(1, 7)" [ngClass]="{'active': colorPlayer1==7}" class="color-menu-element bg-color7"></div>
+          <div *ngFor="let color of colors" (click)="setColor(1, color)" class="color-menu-element" [ngClass]="true ? 'bg-color'+color : ''" [class.active]="colorPlayer1==color"></div>
         </div>
       </div>
     </div>
@@ -33,51 +15,27 @@
     <i (click)="togglePlayer()" class='bx bx-transfer'></i>
     
     <div class="color" [ngClass]="{'activeTurn':turn==player2}">
-      <div class="text player2" [ngClass]="{
-        'color0':colorPlayer2==0,
-        'color1':colorPlayer2==1,
-        'color2':colorPlayer2==2,
-        'color3':colorPlayer2==3,
-        'color4':colorPlayer2==4,
-        'color5':colorPlayer2==5,
-        'color6':colorPlayer2==6,
-        'color7':colorPlayer2==7
-      }">
+      <div class="text player2" [ngClass]="true ? 'color'+colorPlayer2 : ''">
         {{player2}}
       </div>
       <div class="color-menu">
         <div class="row">
-          <div (click)="setColor(2, 0)" [ngClass]="{'active': colorPlayer2==0}" class="color-menu-element bg-color0"></div>
-          <div (click)="setColor(2, 1)" [ngClass]="{'active': colorPlayer2==1}" class="color-menu-element bg-color1"></div>
-          <div (click)="setColor(2, 2)" [ngClass]="{'active': colorPlayer2==2}" class="color-menu-element bg-color2"></div>
-          <div (click)="setColor(2, 3)" [ngClass]="{'active': colorPlayer2==3}" class="color-menu-element bg-color3"></div>
-        </div>
-        <div class="row">
-          <div (click)="setColor(2, 4)" [ngClass]="{'active': colorPlayer2==4}" class="color-menu-element bg-color4"></div>
-          <div (click)="setColor(2, 5)" [ngClass]="{'active': colorPlayer2==5}" class="color-menu-element bg-color5"></div>
-          <div (click)="setColor(2, 6)" [ngClass]="{'active': colorPlayer2==6}" class="color-menu-element bg-color6"></div>
-          <div (click)="setColor(2, 7)" [ngClass]="{'active': colorPlayer2==7}" class="color-menu-element bg-color7"></div>
+          <div *ngFor="let color of colors" (click)="setColor(2, color)" class="color-menu-element" [ngClass]="true ? 'bg-color'+color : ''" [class.active]="colorPlayer2==color"></div>
         </div>
       </div>
     </div>
   </div>
   
   <div class="grid">
-    <div class="row">
-      <div #tile0 (click)="markPosition(0)" class="tile empty-tile">{{board[0]}}</div>
-      <div #tile1 (click)="markPosition(1)" class="tile empty-tile">{{board[1]}}</div>
-      <div #tile2 (click)="markPosition(2)" class="tile empty-tile">{{board[2]}}</div>
-    </div>
-    <div class="row">
-      <div #tile3 (click)="markPosition(3)" class="tile empty-tile">{{board[3]}}</div>
-      <div #tile4 (click)="markPosition(4)" class="tile empty-tile">{{board[4]}}</div>
-      <div #tile5 (click)="markPosition(5)" class="tile empty-tile">{{board[5]}}</div>
-    </div>
-    <div class="row">
-      <div #tile6 (click)="markPosition(6)" class="tile empty-tile">{{board[6]}}</div>
-      <div #tile7 (click)="markPosition(7)" class="tile empty-tile">{{board[7]}}</div>
-      <div #tile8 (click)="markPosition(8)" class="tile empty-tile">{{board[8]}}</div>
-    </div>
+    <div #tile0 (click)="markPosition(0)" class="tile empty-tile">{{board[0]}}</div>
+    <div #tile1 (click)="markPosition(1)" class="tile empty-tile">{{board[1]}}</div>
+    <div #tile2 (click)="markPosition(2)" class="tile empty-tile">{{board[2]}}</div>
+    <div #tile3 (click)="markPosition(3)" class="tile empty-tile">{{board[3]}}</div>
+    <div #tile4 (click)="markPosition(4)" class="tile empty-tile">{{board[4]}}</div>
+    <div #tile5 (click)="markPosition(5)" class="tile empty-tile">{{board[5]}}</div>
+    <div #tile6 (click)="markPosition(6)" class="tile empty-tile">{{board[6]}}</div>
+    <div #tile7 (click)="markPosition(7)" class="tile empty-tile">{{board[7]}}</div>
+    <div #tile8 (click)="markPosition(8)" class="tile empty-tile">{{board[8]}}</div>
   </div>
   
   <div (click)="reset()" class="footer">

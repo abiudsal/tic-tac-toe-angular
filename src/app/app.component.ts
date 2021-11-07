@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, QueryList, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -15,6 +15,7 @@ export class AppComponent {
   public tiles: Array<ElementRef> = []
 
   public board: Array<string>;
+  public colors: Array<number>;
   public gameOver = false
 
   @ViewChild('tile0') tile0 !: ElementRef
@@ -28,18 +29,21 @@ export class AppComponent {
   @ViewChild('tile8') tile8 !: ElementRef
 
   constructor(){
+    this.colors = [0, 1, 2, 3, 4, 5, 6, 7];
     this.board = ["", "", "", "", "", "", "", "", ""]
     this.changeTurn()
   }
   
   ngAfterViewInit(){
     this.tiles = [this.tile0, this.tile1, this.tile2, this.tile3, this.tile4, this.tile5, this.tile6, this.tile7, this.tile8]
-    this.setEmptyTilesColor()
+    this.setEmptyTilesColor();
   }
 
   togglePlayer(){
     this.changePlayers()
-    this.changeTurn()
+    if(this.player1 != this.turn){
+      this.changeTurn()
+    }
     this.reset()
   }
 
@@ -51,13 +55,17 @@ export class AppComponent {
         this.changeTurn()
         this.setEmptyTilesColor()
         this.gameOver = this.isTie()
-        
+        if(this.gameOver){
+          alert("Empate...");
+        }        
       }    
       else{
         this.gameOver = true
+        alert("Ganó el jugador "+this.turn);
       }
     }
   }  
+
   isTie(): boolean {
     for(let i=0; i<this.board.length; i++){
       if(this.board[i]==""){
@@ -79,6 +87,7 @@ export class AppComponent {
   reset(){
     this.board = ["", "", "", "", "", "", "", "", ""]
     this.setEmptyTilesColor()
+    this.turn = this.player1;
   }
 
   changePlayers(){
@@ -90,6 +99,9 @@ export class AppComponent {
       this.player1 = "X"      
       this.player2 = "O"      
     }
+    const aux = this.colorPlayer1;
+    this.colorPlayer1 = this.colorPlayer2;
+    this.colorPlayer2 = aux;
   }
 
   setColor(player: number, color: number){
@@ -117,8 +129,7 @@ export class AppComponent {
         }
         tile.nativeElement.innerHTML = this.turn
       }
-      else{
-        
+      else{        
         tile.nativeElement.classList.remove(
           `empty-tile-color${this.colorPlayer1}`,
           `empty-tile-color${this.colorPlayer2}`,
